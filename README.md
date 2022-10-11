@@ -160,10 +160,10 @@ A API a ser construída é um sistema de gerenciamento de vendas no formato drop
 
 1. Clone o repositório
 
-- `git clone git@github.com:betrybe/sd-022-b-store-manager-rubric.git`;
+- `git clone git@github.com:betrybe/sd-022-b-store-manager.git`;
 
 - Entre na pasta do repositório que você acabou de clonar:
-  - `cd sd-022-b-store-manager-rubric`
+  - `cd sd-022-b-store-manager`
 
 2. Instale as dependências [**Caso existam**]
 
