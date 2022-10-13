@@ -18,7 +18,15 @@ const getOneProduct = async (req) => {
   return { status: 200, response: products };
 };
 
+const postProduct = async (req) => {
+  const { name } = req.body;
+  const request = { name };
+  const id = await productsModel.post(request);
+  return { status: 201, response: { ...request, id } };
+};
+
 module.exports = {
   getAllProducts,
   getOneProduct,
+  postProduct,
 };
