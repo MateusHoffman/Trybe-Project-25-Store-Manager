@@ -5,10 +5,10 @@ const sinonChai = require('sinon-chai');
 const { expect } = chai;
 chai.use(sinonChai);
 
-const { mockArrSales } = require("../mocks/mockSales");
+const { mockArrSales, mockArrAllSales } = require("../mocks/mockSales");
 
 const { salesService } = require("../../../src/services");
-const { postMultipleSales } = require("../../../src/controllers/sales.controller");
+const { postMultipleSales, getAllSales, getOneSale, mockArrOneSale } = require("../../../src/controllers/sales.controller");
 
 describe('Unit Test - salesController', () => {
 	describe('Post multiple sales', () => {
@@ -23,6 +23,34 @@ describe('Unit Test - salesController', () => {
         .resolves({ status: 201, response: { id: 1, itemsSold: [...mockArrSales] } });
 
       await postMultipleSales(req, res);
+		})
+	})
+  describe('Get all sales', () => {
+    it('{ status: 200, response: [{}, {}, ...] }', async () => {
+      const res = {};
+      const req = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(salesService, 'getAllSales')
+        .resolves({ status: 200, response: mockArrAllSales });
+
+      await getAllSales(req, res);
+    })
+  })
+	describe('Get one sale by Id', () => {
+		it('{ status: 200, response: [{}, {}, ...] }', async () => {
+      const res = {};
+      const req = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(salesService, 'getOneSale')
+        .resolves({ status: 200, response: mockArrOneSale });
+
+      await getOneSale(req, res);
 		})
 	})
 })
