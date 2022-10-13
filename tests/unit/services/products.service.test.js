@@ -56,6 +56,39 @@ describe('Unit Test - productsServices', () => {
 
       await postProduct(req);
 		})
+    it('Return: { status: 400, response: { message: ""name" is required" }', async () => {
+      const req = {
+        body: { name: '' },
+      };
+
+      sinon
+        .stub(productsModel, 'post')
+        .resolves(1);
+
+      await postProduct(req);
+		})
+    it('Return: { status: 400, response: { message: ""name" is required" }', async () => {
+      const req = {
+        body: { xxxxx: 'Product X' },
+      };
+
+      sinon
+        .stub(productsModel, 'post')
+        .resolves(1);
+
+      await postProduct(req);
+		})
+    it('Return: { status: 422, response: { message: ""name" length must be at least 5 characters long" }', async () => {
+      const req = {
+        body: { name: 'P' },
+      };
+
+      sinon
+        .stub(productsModel, 'post')
+        .resolves(1);
+
+      await postProduct(req);
+		})
 	})
   afterEach(sinon.restore);
 })

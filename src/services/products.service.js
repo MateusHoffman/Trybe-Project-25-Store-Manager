@@ -1,10 +1,5 @@
-// const Joi = require('joi'); // Lib validador de dados
 const { productsModel } = require('../models');
-
-// const pathSchema = Joi.object({
-// x: ...
-// y: ...
-// })
+const { postProductValidate } = require('./validations/fieldValidation');
 
 const getAllProducts = async () => {
   const products = await productsModel.getAll();
@@ -20,6 +15,8 @@ const getOneProduct = async (req) => {
 
 const postProduct = async (req) => {
   const { name } = req.body;
+  const resultValidation = postProductValidate(name);
+  if (resultValidation) return resultValidation;
   const request = { name };
   const id = await productsModel.post(request);
   return { status: 201, response: { ...request, id } };
