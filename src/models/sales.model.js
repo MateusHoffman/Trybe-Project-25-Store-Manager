@@ -62,9 +62,27 @@ const postSales = async (arrSales) => {
   return insertId;
 };
 
+const deleteById = async (id) => {
+  const sqlQuery = 'DELETE FROM StoreManager.sales WHERE id = ?';
+  const [result] = await connection.execute(sqlQuery, [id]);
+  return result;
+};
+
+const getSaleById = async (id) => {
+  const sqlQuery = `
+    SELECT *
+    FROM StoreManager.sales
+    WHERE id = ?
+  `;
+  const [[result]] = await connection.execute(sqlQuery, [id]);
+  return result;
+};
+
 module.exports = {
   getAllProductsSale,
   getAll,
   getById,
   postSales,
+  deleteById,
+  getSaleById,
 };
