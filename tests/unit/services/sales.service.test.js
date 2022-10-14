@@ -52,16 +52,16 @@ describe('Unit Test - salesServices', () => {
       await postSalesValidate(mockArrSales, mockArrSales.length);
     })
   })
-  describe('Post multiple sales', () => {
-    it('Return: { status: 201, response: { id, itemsSold: [...arrSales] } }', async () => {
-      await postSalesValidate(mockArrSales);
-      sinon
-        .stub(salesModel, 'postSales')
-        .resolves(1);
+  // describe('Post multiple sales', () => {
+  //   it('Return: { status: 201, response: { id, itemsSold: [...arrSales] } }', async () => {
+  //     await postSalesValidate(mockArrSales);
+  //     sinon
+  //       .stub(salesModel, 'postSales')
+  //       .resolves(1);
 
-      await postMultipleSales(mockArrSales);
-    })
-  })
+  //     await postMultipleSales(mockArrSales);
+  //   })
+  // })
   describe('Get all sales', () => {
     it('{ status: 200, response: sales }', async () => {
       sinon
