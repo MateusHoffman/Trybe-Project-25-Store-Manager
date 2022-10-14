@@ -20,9 +20,15 @@ const deleteOneSale = async (req, res) => {
   res.status(status).json(response);
 };
 
+const putOneSale = async (req, res) => {
+  const { status, response } = await salesService.putOneSale(req);
+  res.status(status).json(response);
+};
+
 module.exports = {
   getAllSales,
   getOneSale,
   postMultipleSales,
   deleteOneSale,
+  putOneSale,
 };

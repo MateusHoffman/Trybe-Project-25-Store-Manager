@@ -12,7 +12,7 @@ const {
 const { postSalesValidate } = require("../../../src/services/validations/fieldValidation");
 
 const { salesModel } = require("../../../src/models");
-const { postMultipleSales, getAllSales, getOneSale, deleteOneSale } = require("../../../src/services/sales.service");
+const { postMultipleSales, getAllSales, getOneSale, deleteOneSale, putOneSale } = require("../../../src/services/sales.service");
 
 describe('Unit Test - salesServices', () => {
 	describe('Field validation', () => {
@@ -97,6 +97,12 @@ describe('Unit Test - salesServices', () => {
     })
     it('404', async () => {
       await deleteOneSale({params: { id: 9999999999999999999 }});
+    })
+  })
+  describe('PUT - Sale', () => {
+    it('', async () => {
+      const arr = [ { "productId": 1, "quantity": 10 }, { "productId": 2, "quantity": 50 } ]
+      await putOneSale({ params: { id: 1 }, body: { arr } });
     })
   })
   afterEach(sinon.restore);

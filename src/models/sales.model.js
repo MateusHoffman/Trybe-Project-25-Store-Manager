@@ -78,6 +78,26 @@ const getSaleById = async (id) => {
   return result;
 };
 
+const deleteSaleProductsById = async (id) => {
+  const [result] = await connection.execute(
+    'DELETE FROM StoreManager.sales_products WHERE sale_id = ?', [id],
+  );
+  return result;
+};
+
+const postSaleUpdate = async (arrSales, id) => {
+  const promises = [];
+  arrSales.forEach((sale) => {
+    const sqlQuery2 = `
+    INSERT INTO StoreManager.sales_products
+    (sale_id, product_id, quantity)
+    VALUES (?, ?, ?)`;
+    const insertItem = connection.execute(sqlQuery2, [id, sale.productId, sale.quantity]);
+    promises.push(insertItem);
+  });
+  await Promise.all(promises);
+};
+
 module.exports = {
   getAllProductsSale,
   getAll,
@@ -85,4 +105,6 @@ module.exports = {
   postSales,
   deleteById,
   getSaleById,
+  deleteSaleProductsById,
+  postSaleUpdate,
 };
