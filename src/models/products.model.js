@@ -44,9 +44,16 @@ const put = async (name, id) => {
   return result;
 };
 
+const deleteById = async (id) => {
+  const sqlQuery = 'DELETE FROM StoreManager.products WHERE id = ?';
+  const [result] = await connection.execute(sqlQuery, [id]);
+  return result;
+};
+
 module.exports = {
   getAll,
   getById,
   post,
   put,
+  deleteById,
 };

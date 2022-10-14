@@ -8,7 +8,7 @@ chai.use(sinonChai);
 const { mockGetAllProducts, mockGetOneProduct } = require("../mocks/mockProducts");
 
 const { productsModel } = require("../../../src/models");
-const { getAllProducts, getOneProduct, postProduct, putProduct } = require("../../../src/services/products.service");
+const { getAllProducts, getOneProduct, postProduct, putProduct, deleteProduct } = require("../../../src/services/products.service");
 
 describe('Unit Test - productsServices', () => {
 	describe('Get all products', () => {
@@ -98,6 +98,11 @@ describe('Unit Test - productsServices', () => {
       })
       it('', async () => {
         await putProduct({ body: { name: 'XXXXXXXXX' }, params: { id: 999999999999 } });
+      })
+    })
+    describe('DELETE - One product', () => {
+      it('', async () => {
+        await deleteProduct({  params: { id: 1 } });
       })
     })
 	})

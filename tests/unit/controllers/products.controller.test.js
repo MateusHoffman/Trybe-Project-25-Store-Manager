@@ -8,7 +8,7 @@ chai.use(sinonChai);
 const { mockGetAllProducts, mockGetOneProduct } = require("../mocks/mockProducts");
 
 const { productsService } = require("../../../src/services");
-const { getAllProducts, getOneProduct, postProduct, putProduct } = require("../../../src/controllers/products.controller");
+const { getAllProducts, getOneProduct, postProduct, putProduct, deleteProduct } = require("../../../src/controllers/products.controller");
 
 describe('Unit Test - productsController', () => {
 	describe('Get all products', () => {
@@ -75,6 +75,20 @@ describe('Unit Test - productsController', () => {
         .resolves({ status: 200, response: { name: 'XXX', id: 1 } });
 
       await putProduct(req, res);
+		})
+	})
+	describe('DELETE - Product', () => {
+    it('status: 204', async () => {
+      const res = {};
+      const req = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(productsService, 'deleteProduct')
+        .resolves({ status: 204 });
+
+      await deleteProduct(req, res);
 		})
 	})
 })

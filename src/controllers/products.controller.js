@@ -20,9 +20,15 @@ const putProduct = async (req, res) => {
   res.status(status).json(response);
 };
 
+const deleteProduct = async (req, res) => {
+  const { status, response } = await productsService.deleteProduct(req);
+  res.status(status).json(response);
+};
+
 module.exports = {
   getAllProducts,
   getOneProduct,
   postProduct,
   putProduct,
+  deleteProduct,
 };

@@ -33,9 +33,18 @@ const putProduct = async (req) => {
   return { status: 200, response: { name, id } };
 };
 
+const deleteProduct = async (req) => {
+  const { id } = req.params;
+  const productExist = await productsModel.getById(id);
+  if (!productExist) return { status: 404, response: { message: 'Product not found' } };
+  await productsModel.deleteById(id);
+  return { status: 204 };
+};
+
 module.exports = {
   getAllProducts,
   getOneProduct,
   postProduct,
   putProduct,
+  deleteProduct,
 };
