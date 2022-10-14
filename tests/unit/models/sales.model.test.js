@@ -29,14 +29,14 @@ describe('Unit Test - salesModels', () => {
       await getAll();
     })
   })
-  describe('Get one sale by id', () => {
-    it('', async () => {
-      sinon
-        .stub(connection, 'execute')
-        .resolves(mockArrOneSale);
+  // describe('Get one sale by id', () => {
+  //   it('', async () => {
+  //     sinon
+  //       .stub(connection, 'execute')
+  //       .resolves(mockArrOneSale);
 
-      await getById(1);
-    })
-  })
+  //     await getById(1);
+  //   })
+  // })
   afterEach(sinon.restore);
 })
