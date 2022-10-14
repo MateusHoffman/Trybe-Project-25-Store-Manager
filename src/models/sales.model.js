@@ -18,12 +18,12 @@ const getAll = async () => {
 const getById = async (id) => {
   const sqlQuery = `
     SELECT
-      (s.date) AS date,
-      (sp.product_id) AS productId,
-      (sp.quantity) AS quantity
+    (s.date) AS date,
+    (sp.product_id) AS productId,
+    (sp.quantity) AS quantity
     FROM StoreManager.sales_products AS sp
-      JOIN StoreManager.sales AS s ON s.id = sp.sale_id
-        WHERE sp.sale_id = ?
+    JOIN StoreManager.sales AS s ON s.id = sp.sale_id
+    WHERE sp.sale_id = ?
   `;
   const [sale] = await connection.execute(sqlQuery, [id]);
   return sale;

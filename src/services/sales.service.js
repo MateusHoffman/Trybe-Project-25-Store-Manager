@@ -14,7 +14,7 @@ const getOneSale = async (req) => {
 };
 
 const postMultipleSales = async (req) => {
-  const arrSales = req.body;
+  const arrSales = await req.body;
   const lengthArrSales = arrSales && arrSales.length;
   const resultValidation = await postSalesValidate(arrSales, lengthArrSales);
   if (resultValidation) return resultValidation;

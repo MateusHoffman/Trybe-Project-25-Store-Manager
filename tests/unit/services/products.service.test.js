@@ -8,7 +8,7 @@ chai.use(sinonChai);
 const { mockGetAllProducts, mockGetOneProduct } = require("../mocks/mockProducts");
 
 const { productsModel } = require("../../../src/models");
-const { getAllProducts, getOneProduct, postProduct } = require("../../../src/services/products.service");
+const { getAllProducts, getOneProduct, postProduct, putProduct } = require("../../../src/services/products.service");
 
 describe('Unit Test - productsServices', () => {
 	describe('Get all products', () => {
@@ -21,7 +21,7 @@ describe('Unit Test - productsServices', () => {
 		})
 	})
 	describe('Get one product', () => {
-		it('Return object with one product', async () => {
+    it('Return object with one product', async () => {
       const req = {
         params: { id: 1 },
       };
@@ -89,6 +89,17 @@ describe('Unit Test - productsServices', () => {
 
       await postProduct(req);
 		})
+    describe('PUT - One product', () => {
+      it('', async () => {
+        await putProduct({ body: { name: 'XXXXXXXXX' }, params: { id: 1 } });
+      })
+      it('', async () => {
+        await putProduct({ body: { name: 'X' }, params: { id: 1 } });
+      })
+      it('', async () => {
+        await putProduct({ body: { name: 'XXXXXXXXX' }, params: { id: 999999999999 } });
+      })
+    })
 	})
   afterEach(sinon.restore);
 })

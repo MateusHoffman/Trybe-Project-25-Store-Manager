@@ -15,8 +15,14 @@ const postProduct = async (req, res) => {
   res.status(status).json(response);
 };
 
+const putProduct = async (req, res) => {
+  const { status, response } = await productsService.putProduct(req);
+  res.status(status).json(response);
+};
+
 module.exports = {
   getAllProducts,
   getOneProduct,
   postProduct,
+  putProduct,
 };
