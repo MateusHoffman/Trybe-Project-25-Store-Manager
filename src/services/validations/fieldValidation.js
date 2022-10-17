@@ -53,7 +53,7 @@ const postSalesValidate = (arrSales, lengthArrSales) => {
   if (checkProductExist(arrSales)) return checkProductExist(arrSales);
   return undefined;
 };
-
+// test
 module.exports = {
   postProductValidate,
   postSalesValidate,
