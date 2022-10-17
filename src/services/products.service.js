@@ -12,6 +12,12 @@ const getOneProduct = async (req) => {
   return { status: 200, response: products };
 };
 
+const getAllSearchProduct = async (query) => {
+  if (query === '') return getAllProducts();
+  const products = await productsModel.getAllByQuery(query);
+  return { status: 200, response: products };
+};
+
 const postProduct = async (req) => {
   const { name } = req.body;
   const request = { name };
@@ -46,4 +52,5 @@ module.exports = {
   postProduct,
   putProduct,
   deleteProduct,
+  getAllSearchProduct,
 };

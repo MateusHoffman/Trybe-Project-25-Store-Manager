@@ -9,7 +9,7 @@ const { mockGetAllProducts, mockGetOneProduct } = require("../mocks/mockProducts
 const { mockArrProductsForSale } = require("../mocks/mockSales");
 
 const { productsModel, salesModel } = require("../../../src/models");
-const { getAllProducts, getOneProduct, postProduct, putProduct, deleteProduct } = require("../../../src/services/products.service");
+const { getAllProducts, getOneProduct, postProduct, putProduct, deleteProduct, getAllSearchProduct } = require("../../../src/services/products.service");
 
 describe('Unit Test - productsServices', () => {
 	describe('Get all products', () => {
@@ -134,6 +134,20 @@ describe('Unit Test - productsServices', () => {
         .resolves({ affectedRows: 1 });
 
       await deleteProduct({ params: { id: 1 } })
+    })
+  })
+  describe('getAllSearchProduct', () => {
+    it('Success All Search', async () => {
+      sinon
+        .stub(productsModel, 'getAllByQuery')
+        .resolves([ { id: 1, name: "Nome 2" } ]);
+      await getAllSearchProduct('Nome')
+    })
+    it('Success All', async () => {
+      sinon
+        .stub(productsModel, 'getAll')
+        .resolves([ { id: 1, name: "Nome 2" }, { id: 2, name: "Nome 1" } ]);
+      await getAllSearchProduct('')
     })
   })
   afterEach(sinon.restore);

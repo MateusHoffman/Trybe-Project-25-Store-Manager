@@ -12,6 +12,7 @@ const {
 
 const { salesModel } = require("../../../src/models");
 const { postMultipleSales, getAllSales, getOneSale, deleteOneSale, putOneSale } = require("../../../src/services/sales.service");
+const { validateNewSale } = require("../../../src/services/validations/validation");
 
 describe('Unit Test - salesServices', () => {
   describe('Get all sales', () => {
@@ -104,6 +105,17 @@ describe('Unit Test - salesServices', () => {
         .resolves(null);
 
       await putOneSale({ params: { id: 1 }, body: updateSale });
+    })
+  })
+  describe('validateNewSale', () => {
+    it('1', async () => {
+      await validateNewSale({ productId: 5, quantity: 5, })
+    })
+    it('2', async () => {
+      await validateNewSale({ productId: 5, quantity: 0, })
+    })
+    it('2', async () => {
+      await validateNewSale({ xxx: 5, yyy: 5, })
     })
   })
   afterEach(sinon.restore);

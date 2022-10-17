@@ -10,6 +10,12 @@ const getOneProduct = async (req, res) => {
   res.status(status).json(response);
 };
 
+const getAllSearchProduct = async (req, res) => {
+  const { q } = req.query;
+  const { status, response } = await productsService.getAllSearchProduct(q);
+  res.status(status).json(response);
+};
+
 const postProduct = async (req, res) => {
   const { status, response } = await productsService.postProduct(req);
   res.status(status).json(response);
@@ -31,4 +37,5 @@ module.exports = {
   postProduct,
   putProduct,
   deleteProduct,
+  getAllSearchProduct,
 };

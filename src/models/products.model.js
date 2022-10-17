@@ -18,6 +18,14 @@ const getById = async (id) => {
   return result;
 };
 
+const getAllByQuery = async (query) => {
+  const [result] = await connection.execute(
+    'SELECT * FROM StoreManager.products WHERE name LIKE \'%Martelo%\'',
+    [query],
+  );
+  return result;
+};
+
 const post = async (request) => {
   const columns = Object.keys(snakeize(request))
     .map((key) => `${key}`)
@@ -54,4 +62,5 @@ module.exports = {
   post,
   put,
   deleteById,
+  getAllByQuery,
 };
