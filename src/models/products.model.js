@@ -11,13 +11,11 @@ const getAll = async () => {
 };
 
 const getById = async (id) => {
-  const sqlQuery = `
-    SELECT *
-    FROM StoreManager.products
-    WHERE id = ?
-  `;
-  const [[products]] = await connection.execute(sqlQuery, [id]);
-  return products;
+  const [[result]] = await connection.execute(
+    'SELECT * FROM StoreManager.products WHERE id = ?;',
+    [id],
+  );
+  return result;
 };
 
 const post = async (request) => {
@@ -41,13 +39,13 @@ const post = async (request) => {
 const put = async (name, id) => {
   const sqlQuery = 'UPDATE StoreManager.products SET name = ? WHERE id = ?';
   const [result] = await connection.execute(sqlQuery, [name, id]);
-  return result;
+  return result ? result.affectedRows : result;
 };
 
 const deleteById = async (id) => {
   const sqlQuery = 'DELETE FROM StoreManager.products WHERE id = ?';
   const [result] = await connection.execute(sqlQuery, [id]);
-  return result;
+  return result ? result.affectedRows : result;
 };
 
 module.exports = {

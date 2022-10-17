@@ -8,7 +8,7 @@ chai.use(sinonChai);
 const { mockArrSales, mockArrAllSales, mockArrOneSale } = require("../mocks/mockSales");
 
 const { salesService } = require("../../../src/services");
-const { postMultipleSales, getAllSales, getOneSale, deleteOneSale } = require("../../../src/controllers/sales.controller");
+const { postMultipleSales, getAllSales, getOneSale, deleteOneSale, putOneSale } = require("../../../src/controllers/sales.controller");
 
 describe('Unit Test - salesController', () => {
 	describe('Post multiple sales', () => {
@@ -66,5 +66,20 @@ describe('Unit Test - salesController', () => {
 
       await deleteOneSale(req, res);
 		})
-	})
+  })
+  describe('putOneSale', () => {
+    it('res.status(status).json(response)', async () => {
+      const res = {};
+      const req = {
+        params: { id: 1 },
+        body: mockArrSales
+      };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(salesService, 'putOneSale')
+        .resolves({ status: 200, response: { saleId: 1, itemsUpdated: mockArrSales } });
+      await putOneSale(req, res)
+    })
+  })
 })

@@ -29,18 +29,44 @@ describe('Unit Test - productsModels', () => {
       await getById(1);
 		})
 	})
-	describe('Post one product', () => {
-		it('Return object with one product', async () => {
+	describe('post', () => {
+    it('1', async () => {
+      sinon
+        .stub(connection, 'execute')
+        .resolves([1]);
+
       await post({ name: 'Product X' });
 		})
 	})
-	describe('PUT - One product', () => {
-		it('', async () => {
-      await put('XXXXXXX', 1);
+	describe('put', () => {
+    it('1', async () => {
+      sinon
+        .stub(connection, 'execute')
+        .resolves([{}]);
+
+      await put('Product X', 1);
+		})
+    it('2', async () => {
+      sinon
+        .stub(connection, 'execute')
+        .resolves([undefined]);
+
+      await put('Product X', 1);
 		})
 	})
-	describe('DELETE - One product', () => {
-		it('', async () => {
+	describe('deleteById', () => {
+    it('1', async () => {
+      sinon
+        .stub(connection, 'execute')
+        .resolves([{}]);
+
+      await deleteById(1);
+		})
+    it('2', async () => {
+      sinon
+        .stub(connection, 'execute')
+        .resolves([undefined]);
+
       await deleteById(1);
 		})
 	})

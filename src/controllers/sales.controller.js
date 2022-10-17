@@ -11,7 +11,8 @@ const getOneSale = async (req, res) => {
 };
 
 const postMultipleSales = async (req, res) => {
-  const { status, response } = await salesService.postMultipleSales(req);
+  const sale = req.body;
+  const { status, response } = await salesService.postMultipleSales(sale);
   res.status(status).json(response);
 };
 

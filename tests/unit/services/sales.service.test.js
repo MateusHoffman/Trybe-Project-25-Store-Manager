@@ -8,58 +8,12 @@ chai.use(sinonChai);
 const {
   mockArrProductsForSale, mockArrSales, mockArrProductIdNotExist, mockArrQuantityNotExist,
   mockArrQuantitySmallerZero, mockArrProductsNotExist, mockArrAllSales, mockArrOneSale
-} = require("../mocks/mockSales");
-const { postSalesValidate } = require("../../../src/services/validations/fieldValidation");
+} = require("../mocks/mockSales");mockArrProductsForSale
 
 const { salesModel } = require("../../../src/models");
 const { postMultipleSales, getAllSales, getOneSale, deleteOneSale, putOneSale } = require("../../../src/services/sales.service");
 
 describe('Unit Test - salesServices', () => {
-	describe('Field validation', () => {
-    it('Success', async () => {
-      sinon
-        .stub(salesModel, 'getAllProductsSale')
-        .resolves(mockArrProductsForSale);
-
-      await postSalesValidate(mockArrSales, mockArrSales.length);
-		})
-    it('Field ProductId Not Exist', async () => {
-      sinon
-        .stub(salesModel, 'getAllProductsSale')
-        .resolves(mockArrProductsForSale);
-
-      await postSalesValidate(mockArrProductIdNotExist, mockArrProductIdNotExist.length);
-		})
-    it('Field Quantity Not Exist', async () => {
-      sinon
-        .stub(salesModel, 'getAllProductsSale')
-        .resolves(mockArrProductsForSale);
-
-      await postSalesValidate(mockArrQuantityNotExist, mockArrQuantityNotExist.length);
-		})
-    it('Field Quantity <= 0', async () => {
-      sinon
-        .stub(salesModel, 'getAllProductsSale')
-        .resolves(mockArrProductsForSale);
-
-      await postSalesValidate(mockArrQuantitySmallerZero, mockArrQuantitySmallerZero.length);
-		})
-    it('Product not exist', async () => {
-      sinon
-        .stub(salesModel, 'getAllProductsSale')
-        .resolves(mockArrProductsNotExist);
-
-      await postSalesValidate(mockArrSales, mockArrSales.length);
-    })
-  })
-  describe('Post multiple sales', () => {
-    it('Return: { status: 201, response: { id, itemsSold: [...arrSales] } }', async () => {
-      await postMultipleSales({ body: mockArrSales })
-    })
-    it('Return: { status: 201, response: { id, itemsSold: [...arrSales] } }', async () => {
-      await postMultipleSales({ body: mockArrProductIdNotExist })
-    })
-  })
   describe('Get all sales', () => {
     it('{ status: 200, response: sales }', async () => {
       sinon
@@ -91,18 +45,65 @@ describe('Unit Test - salesServices', () => {
       await getOneSale(req);
     })
   })
-  describe('DELETE', () => {
-    it('204', async () => {
+  describe('deleteOneSale', () => {
+    it('1', async () => {
+      sinon
+        .stub(salesModel, 'getSaleById')
+        .resolves({ id: 1, date: '2022-10-17T19:12:53.000Z' });
+      sinon
+        .stub(salesModel, 'deleteById')
+        .resolves(null);
+
       await deleteOneSale({params: { id: 1 }});
     })
-    it('404', async () => {
-      await deleteOneSale({params: { id: 9999999999999999999 }});
+    it('2', async () => {
+      sinon
+        .stub(salesModel, 'getSaleById')
+        .resolves(undefined);
+      sinon
+        .stub(salesModel, 'deleteById')
+        .resolves(null);
+
+      await deleteOneSale({params: { id: 1 }});
     })
   })
-  describe('PUT - Sale', () => {
-    it('', async () => {
-      const arr = [ { "productId": 1, "quantity": 10 }, { "productId": 2, "quantity": 50 } ]
-      await putOneSale({ params: { id: 1 }, body: { arr } });
+  describe('POST', () => {
+    it('postMultipleSales', async () => {
+      sinon
+        .stub(salesModel, 'postSales')
+        .resolves(1);
+
+      await postMultipleSales(mockArrSales);
+    })
+  })
+  describe('PUT', () => {
+    it('putOneSale', async () => {
+      const updateSale = [ { "productId": 1, "quantity": 10 }, { "productId": 2, "quantity": 50 } ]
+      sinon
+        .stub(salesModel, 'getSaleById')
+        .resolves({ id: 1, date: '2022-10-17T19:12:53.000Z' });
+      sinon
+        .stub(salesModel, 'deleteSaleProductsById')
+        .resolves(null);
+      sinon
+        .stub(salesModel, 'postSaleUpdate')
+        .resolves(null);
+
+      await putOneSale({ params: { id: 1 }, body: updateSale });
+    })
+    it('putOneSale', async () => {
+      const updateSale = [ { "productId": 1, "quantity": 10 }, { "productId": 2, "quantity": 50 } ]
+      sinon
+        .stub(salesModel, 'getSaleById')
+        .resolves(undefined);
+      sinon
+        .stub(salesModel, 'deleteSaleProductsById')
+        .resolves(null);
+      sinon
+        .stub(salesModel, 'postSaleUpdate')
+        .resolves(null);
+
+      await putOneSale({ params: { id: 1 }, body: updateSale });
     })
   })
   afterEach(sinon.restore);

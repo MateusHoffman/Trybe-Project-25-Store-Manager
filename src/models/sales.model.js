@@ -29,14 +29,14 @@ const getById = async (id) => {
   return sale;
 };
 
-const getAllProductsSale = async () => {
-  const sqlQuery = `
-    SELECT *
-    FROM StoreManager.sales_products;
-  `;
-  const [productsForSale] = await connection.execute(sqlQuery);
-  return productsForSale;
-};
+// const getAllProductsSale = async () => {
+//   const sqlQuery = `
+//     SELECT *
+//     FROM StoreManager.sales_products;
+//   `;
+//   const [productsForSale] = await connection.execute(sqlQuery);
+//   return productsForSale;
+// };
 
 const postSales = async (arrSales) => {
   const sqlQuery = `
@@ -99,7 +99,7 @@ const postSaleUpdate = async (arrSales, id) => {
 };
 
 module.exports = {
-  getAllProductsSale,
+  // getAllProductsSale,
   getAll,
   getById,
   postSales,

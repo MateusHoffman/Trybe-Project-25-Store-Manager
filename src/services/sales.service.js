@@ -1,5 +1,4 @@
 const { salesModel } = require('../models');
-const { postSalesValidate } = require('./validations/fieldValidation');
 
 const getAllSales = async () => {
   const sales = await salesModel.getAll();
@@ -13,15 +12,9 @@ const getOneSale = async (req) => {
   return { status: 200, response: sale };
 };
 
-const postMultipleSales = async (req) => {
-  const arrSales = await req.body;
-  const lengthArrSales = arrSales && arrSales.length;
-  const resultValidation = await postSalesValidate(arrSales, lengthArrSales);
-  if (resultValidation) return resultValidation;
-
-  const id = await salesModel.postSales(arrSales);
-
-  return { status: 201, response: { id, itemsSold: [...arrSales] } };
+const postMultipleSales = async (arrSale) => {
+  const id = await salesModel.postSales(arrSale);
+  return { status: 201, response: { id, itemsSold: [...arrSale] } };
 };
 
 const deleteOneSale = async (req) => {
@@ -34,12 +27,7 @@ const deleteOneSale = async (req) => {
 
 const putOneSale = async (req) => {
   const { id } = req.params;
-
-  const arrSales = await req.body;
-  const lengthArrSales = arrSales && arrSales.length;
-  const resultValidation = await postSalesValidate(arrSales, lengthArrSales);
-  if (resultValidation) return resultValidation;
-
+  const arrSales = req.body;
   const saleProductExist = await salesModel.getSaleById(id);
   if (!saleProductExist) return { status: 404, response: { message: 'Sale not found' } };
 
